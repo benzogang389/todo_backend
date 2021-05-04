@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Spoonfeed Test Application API
+  description: API for Spoonfeed Test Application API
+  version: 1.0.0
+servers:
+  - url: http://localhost:9090
+paths:
+  /api/task:
+    get:
+      summary: Returns a list of tasks.
+      tags:
+        - Task api
+      responses:
+        '200': # status code
+          description: A JSON array of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: json
+    post:
+      summary: Creates a new task
+      tags:
+        - Task api
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: TaskObject
+              properties:
+                name:
+                  type: string
+                categoryId:
+                  type: string
+                completed:
+                  type: boolean
+                createdAt:
+                  type: date
+            example: # Sample object
+              name: Alice
+              categoryId: example123_id
+              completed: true
+              createdAt: 20-03-2019
+      responses:
+        '200':
+          description: Created
+  /api/task/{taskId}:
+    get:
+      summary: Returns task by id.
+      tags:
+        - Task api
+      responses:
+        '200': # status code
+          description: Category object
+          content:
+            application/json:
+              schema:
+                type: Object
+                items:
+                  type: json
+    put:
+      summary: Completely updates task.
+      tags:
+        - Task api
+      responses:
+        '200': # status code
+          description: Category object
+          content:
+            application/json:
+              schema:
+                type: Object
+                items:
+                  type: json
+    delete:
+      summary: Deletes task by id.
+      tags:
+        - Task api
+      responses:
+        '200': # status code
+          description: Category object
+          content:
+            application/json:
+              schema:
+                type: Object
+                items:
+                  type: json
+  /api/category:
+    get:
+      summary: Returns a list of categories.
+      tags:
+        - Category api
+      responses:
+        '200': # status code
+          description: A JSON array of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: json
+    post:
+      summary: Creates a new category
+      tags:
+        - Category api
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: CategoryObject
+              properties:
+                name:
+                  type: string
+                categoryId:
+                  type: string
+                completed:
+                  type: boolean
+                createdAt:
+                  type: date
+            example: # Sample object
+              name: Alice
+              categoryId: example123_id
+              completed: true
+              createdAt: 20-03-2019
+      responses:
+        '200':
+          description: Created
+  /api/category/{categoryId}:
+    get:
+      summary: Returns category by id.
+      tags:
+        - Category api
+      responses:
+        '200': # status code
+          description: Category object
+          content:
+            application/json:
+              schema:
+                type: Object
+                items:
+                  type: json
+    put:
+      summary: Completely updates category.
+      tags:
+        - Category api
+      responses:
+        '200': # status code
+          description: Category object
+          content:
+            application/json:
+              schema:
+                type: Object
+                items:
+                  type: json
+    delete:
+      summary: Deletes category by id.
+      tags:
+        - Category api
+      responses:
+        '200': # status code
+          description: Category object
+          content:
+            application/json:
+              schema:
+                type: Object
+                items:
+                  type: json
