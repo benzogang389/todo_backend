@@ -21,6 +21,12 @@ const updateCategory = async (id: string, name: string) => {
 };
 
 const deleteCategoryById = async (id: string) => {
+  const category = await Category.findById(id);
+
+  if (!category) {
+    throw new Error('Category not found');
+  }
+
   return Category.findByIdAndDelete(id);
 };
 

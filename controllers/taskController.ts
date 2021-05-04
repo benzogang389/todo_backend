@@ -17,47 +17,51 @@ const createTask = async (req: Request, res: Response) => {
   }
 };
 
-/* const getTaskById = async (req: Request, res: Response) => {
-  await checkErrors(req, res);
-
-  try {
-    const task = await taskService.getTaskById(req.params.id);
-    return res.json(task);
-  } catch (e) {
-    if (e.kind === 'ObjectId') {
-      res.status(404).json({ errors: [{ msg: 'One of the IDs is incorrect', severity: 'error' }] });
-      return;
-    }
-
-    res.status(500).send('Server Error');
-  }
-};
-
 const getAllTasks = async (_: Request, res: Response) => {
   try {
     const tasks = await taskService.getAllTasks();
+
     return res.json(tasks);
   } catch (e) {
-    res.status(500).json(e);
+    res.status(500).send(e.message || 'Server Error');
   }
 };
 
-const updateTask = async (req: Request, res: Response) => {
+const updateCompleteTask = async (req: Request, res: Response) => {
   try {
-    const updatedTask = await taskService.updateTask(req.body);
-    return res.json(updatedTask);
+    const { id } = req.params;
+    const { completed } = req.body;
+
+    await taskService.updateCompleteTask(id, completed);
+
+    res.json({ msg: 'Successfully updated tasks', severity: 'success' });
   } catch (e) {
-    res.status(500).json(e.message);
+    res.status(500).send(e.message || 'Server Error');
+  }
+};
+const updateContentTask = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { name, categoryId } = req.body;
+
+    await taskService.updateContentTask(id, name, categoryId);
+
+    res.json({ msg: 'Successfully updated tasks', severity: 'success' });
+  } catch (e) {
+    res.status(500).send(e.message || 'Server Error');
   }
 };
 
 const deleteTaskById = async (req: Request, res: Response) => {
   try {
-    const task = await taskService.deleteTaskById(req.params.id);
-    return res.json(task);
+    const { id } = req.params;
+
+    await taskService.deleteTaskById(id);
+
+    res.json({ msg: 'Successfully deleted tasks', severity: 'success' });
   } catch (e) {
     res.status(500).json(e);
   }
-}; */
+};
 
-export default { createTask /* getTaskById, getAllTasks, updateTask, deleteTaskById */ };
+export default { createTask, getAllTasks, updateCompleteTask, updateContentTask, deleteTaskById };
