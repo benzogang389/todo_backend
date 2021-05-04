@@ -1,28 +1,27 @@
-import {CategoryInterface} from "../models/Category/types";
-import Category from "../models/Category/Category";
+import Category from '../models/Category/Category';
 
-const createCategory = async (category: CategoryInterface) => {
-    return await Category.create(category);
-}
+const createCategory = async (name: string) => {
+  const category = new Category({ name });
 
-const getCategoryById = async (id: string) => {
-    return Category.findById(id);
-}
+  await category.save();
+};
 
 const getAllCategories = async () => {
-    return Category.find();
-}
+  return Category.find();
+};
 
-const updateCategory = async (category: CategoryInterface) => {
-    if (!category._id) {
-        throw new Error("ID is not defined")
-    }
-    return Category.findByIdAndUpdate(category._id, category);
-}
+const updateCategory = async (id: string, name: string) => {
+  const category = await Category.findById(id);
+
+  if (!category) {
+    throw new Error('Category not found');
+  }
+
+  return Category.findByIdAndUpdate(id, { name });
+};
 
 const deleteCategoryById = async (id: string) => {
-    return Category.findByIdAndDelete(id);
-}
+  return Category.findByIdAndDelete(id);
+};
 
-
-export default {createCategory, getCategoryById, getAllCategories, updateCategory, deleteCategoryById};
+export default { createCategory, getAllCategories, updateCategory, deleteCategoryById };

@@ -1,11 +1,12 @@
-import {TaskInterface} from "../models/Task/types";
-import Task from "../models/Task/Task";
+import Task from '../models/Task/Task';
 
-const createTask = async (task: TaskInterface) => {
-    return await Task.create(task);
-}
+const createTask = async (name: string, categoryId: string) => {
+  const task = new Task({ name, categoryId, completed: false });
 
-const getTaskById = async (id: string) => {
+  await task.save();
+};
+
+/* const getTaskById = async (id: string) => {
     return Task.findById(id);
 }
 
@@ -25,7 +26,6 @@ const deleteTaskById = async (id: string) => {
         throw new Error("ID is not defined")
     }
     return Task.findByIdAndDelete(id);
-}
+} */
 
-
-export default {createTask, getTaskById, getAllTasks, updateTask, deleteTaskById};
+export default { createTask /* getTaskById, getAllTasks, updateTask, deleteTaskById */ };
