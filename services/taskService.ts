@@ -1,4 +1,5 @@
 import Task from '../models/Task/Task';
+import Category from '../models/Category/Category';
 
 const createTask = async (name: string, categoryId: string) => {
   const task = new Task({ name, categoryId, completed: false });
@@ -16,8 +17,11 @@ const updateCompleteTask = async (id: string, completed: boolean) => {
   if (!task) {
     throw new Error('Task not found');
   }
+  await Task.findByIdAndUpdate(id, { completed });
 
-  return Task.findByIdAndUpdate(id, { completed });
+  const category = await Category.findById(task.categoryId);
+
+  return { task, category };
 };
 
 const updateContentTask = async (id: string, name: string, categoryId: string) => {

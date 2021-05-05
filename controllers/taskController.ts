@@ -1,7 +1,10 @@
 import { Request, Response } from 'express';
+import axios from 'axios';
 
 import checkErrors from '../utils/middlewareErrors';
 import taskService from '../services/taskService';
+
+const { SLACK_HOOK_URL } = process.env;
 
 const createTask = async (req: Request, res: Response) => {
   checkErrors(req, res);
@@ -32,7 +35,29 @@ const updateCompleteTask = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { completed } = req.body;
 
-    await taskService.updateCompleteTask(id, completed);
+    const { task, category } = await taskService.updateCompleteTask(id, completed);
+
+    if (!task?.completed) {
+      axios.post(`${SLACK_HOOK_URL}`, {
+        text: 'ToDo task was Completed.',
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: 'ToDo task was Completed.',
+            },
+          },
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: `*Task name:* ${task?.name}\n*Task category:* ${category?.name}`,
+            },
+          },
+        ],
+      });
+    }
 
     res.json({ msg: 'Successfully updated tasks', severity: 'success' });
   } catch (e) {

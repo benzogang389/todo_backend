@@ -16,7 +16,7 @@ const { PORT, DEV_CLIENT_URL } = process.env;
 const app = express();
 
 const corsOptions = {
-  origin: [DEV_CLIENT_URL as string],
+  origin: [`${DEV_CLIENT_URL}`],
   credentials: true,
 };
 

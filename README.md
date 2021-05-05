@@ -20,4 +20,6 @@ You need to add a .env file to the main directory, where specify these variables
 
 ##### MONGO_URI: `mongodb+srv://...`
 
+##### SLACK_HOOK_URL: `https://hooks.slack.com/services/...`
+
 API documentation: `http://localhost:9090/api-docs/`
