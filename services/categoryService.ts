@@ -1,4 +1,5 @@
 import Category from '../models/Category/Category';
+import Task from '../models/Task/Task';
 
 const createCategory = async (name: string) => {
   const category = new Category({ name });
@@ -27,7 +28,7 @@ const deleteCategoryById = async (id: string) => {
     throw new Error('Category not found');
   }
 
-  return Category.findByIdAndDelete(id);
+  return Promise.all([Category.findByIdAndDelete(id), Task.updateMany({ categoryId: id }, { $set: { categoryId: '' } })]);
 };
 
 export default { createCategory, getAllCategories, updateCategory, deleteCategoryById };
