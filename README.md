@@ -19,3 +19,5 @@ You need to add a .env file to the main directory, where specify these variables
 ##### DEV_CLIENT_URL: `http://localhost:3000`
 
 ##### MONGO_URI: `mongodb+srv://...`
+
+API documentation: http://localhost:9090/api-docs/
