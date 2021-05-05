@@ -20,7 +20,9 @@ const createTask = async (req: Request, res: Response) => {
   }
 };
 
-const getAllTasks = async (_: Request, res: Response) => {
+const getAllTasks = async (req: Request, res: Response) => {
+  checkErrors(req, res);
+
   try {
     const tasks = await taskService.getAllTasks();
 
@@ -31,6 +33,8 @@ const getAllTasks = async (_: Request, res: Response) => {
 };
 
 const updateCompleteTask = async (req: Request, res: Response) => {
+  checkErrors(req, res);
+
   try {
     const { id } = req.params;
     const { completed } = req.body;
@@ -65,6 +69,8 @@ const updateCompleteTask = async (req: Request, res: Response) => {
   }
 };
 const updateContentTask = async (req: Request, res: Response) => {
+  checkErrors(req, res);
+
   try {
     const { id } = req.params;
     const { name, categoryId } = req.body;
@@ -78,6 +84,8 @@ const updateContentTask = async (req: Request, res: Response) => {
 };
 
 const deleteTaskById = async (req: Request, res: Response) => {
+  checkErrors(req, res);
+
   try {
     const { id } = req.params;
 
